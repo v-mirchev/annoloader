@@ -17,7 +17,8 @@ ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.dirname(__FILE__)
 require_once CLASS_PATH . '/AnnoLoader/Dependency/Reader/Exception.php';
 require_once CLASS_PATH . '/AnnoLoader/Dependency/Reader/Annotation.php';
 
-require_once CLASS_PATH . '/AnnoLoader/Class/Mapper.php';
+require_once CLASS_PATH . '/AnnoLoader/Namespace/Map.php';
+require_once CLASS_PATH . '/AnnoLoader/Namespace/Mapper.php';
 
 require_once CLASS_PATH . '/AnnoLoader/Dependency/Builder/List.php';
 require_once CLASS_PATH . '/AnnoLoader/Dependency/Builder/File.php';

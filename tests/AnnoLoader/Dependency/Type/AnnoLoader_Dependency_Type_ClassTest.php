@@ -4,7 +4,8 @@ require_once 'PHPUnit/Framework.php';
 
 require_once CLASS_PATH.'/AnnoLoader/Dependency/Type/Class.php';
 require_once CLASS_PATH.'/AnnoLoader/Dependency/Type/Exception.php';
-require_once CLASS_PATH.'/AnnoLoader/Class/Mapper.php';
+require_once CLASS_PATH.'/AnnoLoader/Namespace/Map.php';
+require_once CLASS_PATH.'/AnnoLoader/Namespace/Mapper.php';
 
 /**
  * Test class for AnnoLoader_Dependency_Type_Class.
@@ -33,10 +34,10 @@ class AnnoLoader_Dependency_Type_ClassTest extends PHPUnit_Framework_TestCase {
 
 		$this->object->setBasePath(JS_PATH);
 		$this->object->setExtension('js');
-		$this->object->setNamespace(array
+		$this->object->setNamespace(new AnnoLoader_Namespace_Mapper(new AnnoLoader_Namespace_Map(array
 		(
 			'Ext.ex'	=> 'DependencyTypeClass/ex',
-		));
+		))));
 	}
 
 	/**
