@@ -21,7 +21,22 @@ class AnnoLoader_Dependency_Reader_AnnotationTest extends PHPUnit_Framework_Test
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
-		$this->object = new AnnoLoader_Dependency_Reader_Annotation('annoloader');
+		$this->keywords = array
+		(
+			'requires-file'				=> true,
+			'requires-class'			=> true,
+			'requires-directory-tree'	=> true,
+			'requires-directory'		=> true,
+			'requires-namespace'		=> true,
+		);
+
+		$this->aliasMap = array
+		(
+			'after-file'				=> 'requires-file',
+			'after-class'				=> 'requires-class',
+		);
+
+		$this->object = new AnnoLoader_Dependency_Reader_Annotation('annoloader', $this->keywords, $this->aliasMap);
 	}
 
 	/**
@@ -46,22 +61,32 @@ class AnnoLoader_Dependency_Reader_AnnotationTest extends PHPUnit_Framework_Test
 
 		$expectedResult = array
 		(
-			"no-load"		=> array
-			(
-				'',
-			),
-
 			"requires-file"	=> array
 			(
-			"1.js",
-			"2.js",
+				"1.js",
+				"2.js",
 			),
 			
 			"requires-class"	=> array
 			(
-			"Ext.Namespace.Class1",
-			"Ext.Namespace.Class2",
-			)
+				"Ext.Namespace.Class1",
+				"Ext.Namespace.Class2",
+			),
+
+			"requires-namespace"	=> array
+			(
+				"Ext.Namespace",
+			),
+
+			"requires-directory"	=> array
+			(
+				"ex/grid",
+			),
+
+			"requires-directory-tree"	=> array
+			(
+				"ex/data",
+			),
 		);
 
 		$this->assertEquals($expectedResult, $actualResult, 'Annotations read do not match expected.');
