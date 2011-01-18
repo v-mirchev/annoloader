@@ -35,7 +35,7 @@ class AnnoLoader_Dependency_Builder_List implements Iterator
 
     function next()
 	{
-        ++$this->position;
+        $this->position ++;
     }
 
     function valid()
@@ -137,5 +137,7 @@ class AnnoLoader_Dependency_Builder_List implements Iterator
 		}
 
 		$this->sortByPriority();
+
+		$this->rewind();
 	}
 }

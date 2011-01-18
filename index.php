@@ -25,11 +25,12 @@ require_once 'AnnoLoader/Writer/Filter/Abstract.php';
 require_once 'AnnoLoader/Writer/Filter/JSMin.php';
 require_once 'AnnoLoader/Writer/Filter/Namer.php';
 
+require_once 'AnnoLoader/Facade/Abstract.php';
 require_once 'AnnoLoader/Facade/JS.php';
 
 $js = new AnnoLoader_Facade_JS
 (
-	'/www/site/annoloader/scripts/test/AnnoLoader/ux',
+	'/www/site/annoloader/scripts/test/AnnoLoader/js/ux',
 	array
 	(
 		'Ext.ux'	=> '/',
