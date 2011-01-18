@@ -21,6 +21,20 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 	 */
 	protected function setUp()
 	{
+		$this->keywords = array
+		(
+			'requires-file'				=> true,
+			'requires-class'			=> true,
+			'requires-directory-tree'	=> true,
+			'requires-directory'		=> true,
+			'requires-namespace'		=> true,
+		);
+
+		$this->aliasMap = array
+		(
+			'after-file'				=> 'requires-file',
+			'after-class'				=> 'requires-class',
+		);
 	}
 
 	/**
@@ -38,23 +52,23 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 		(
 			JS_PATH.'/DependencyListBuilder/FileDependency/',
 			'js',
-			array
+			new AnnoLoader_Namespace_Mapper(new AnnoLoader_Namespace_Map(array
 			(
 				'Ext.ex'	=> 'ex',
-			),
+			))),
 			new AnnoLoader_Directory_Iterator(),
-			new AnnoLoader_Dependency_Builder_File($fileName),
-			new AnnoLoader_Dependency_Reader_Annotation('annoloader'),
+			new AnnoLoader_Dependency_Builder_File(),
+			new AnnoLoader_Dependency_Reader_Annotation('annoloader', $this->keywords, $this->aliasMap),
 			new AnnoLoader_Dependency_Type_Factory()
 		);
 
 		$expectedList = array
 		(
-			0 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/grid/Filters.js',
-			1 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/data/Record.js',
-			2 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/data/Store.js',
-			3 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/grid/Panel.js',
-			4 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/plugin/GridPlugin.js',
+			0 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/data/Store.js',
+			1 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/grid/Panel.js',
+			2 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/plugin/GridPlugin.js',
+			3 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/grid/Filters.js',
+			4 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/data/Record.js',
 			5 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/data/Reader.js',
 		);
 
@@ -76,23 +90,23 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 		(
 			JS_PATH.'/DependencyListBuilder/ClassDependency/',
 			'js',
-			array
+			new AnnoLoader_Namespace_Mapper(new AnnoLoader_Namespace_Map(array
 			(
 				'Ext.ex'	=> 'ex',
-			),
+			))),
 			new AnnoLoader_Directory_Iterator(),
-			new AnnoLoader_Dependency_Builder_File($fileName),
-			new AnnoLoader_Dependency_Reader_Annotation('annoloader'),
+			new AnnoLoader_Dependency_Builder_File(),
+			new AnnoLoader_Dependency_Reader_Annotation('annoloader', $this->keywords, $this->aliasMap),
 			new AnnoLoader_Dependency_Type_Factory()
 		);
 
 		$expectedList = array
 		(
-			0 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/grid/Filters.js',
-			1 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/data/Record.js',
-			2 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/data/Store.js',
-			3 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/grid/Panel.js',
-			4 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/plugin/GridPlugin.js',
+			0 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/data/Store.js',
+			1 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/grid/Panel.js',
+			2 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/plugin/GridPlugin.js',
+			3 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/grid/Filters.js',
+			4 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/data/Record.js',
 			5 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/data/Reader.js',
 		);
 
