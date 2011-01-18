@@ -39,6 +39,7 @@ class AnnoLoader_Writer
 		$content = '';
 		foreach ($this->dependencyBuilder as $fileName)
 		{
+
 			if ($output)
 				echo $this->applyFilters(file_get_contents($fileName), $fileName).PHP_EOL;
 			else
