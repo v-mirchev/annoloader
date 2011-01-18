@@ -72,6 +72,17 @@ class AnnoLoader_Dependency_Builder_List
 		});
 	}
 
+	protected function createDependency($dependencyType)
+	{
+		$dependencyType = $this->dependencyAdapterFactory->create($dependencyType);
+
+		$dependencyType->setNamespace($this->namespace);
+		$dependencyType->setBasePath($this->basePath);
+		$dependencyType->setFilesList($this->files);
+		$dependencyType->setExtension($this->extension);
+
+		return $dependencyType;
+	}
 
 	public function build()
 	{
@@ -83,27 +94,15 @@ class AnnoLoader_Dependency_Builder_List
 			{
 				foreach ($dependencies as $dependencyType => $dependency)
 				{
-					$dependencyType = $this->dependencyAdapterFactory->create($dependencyType);
-
-					$dependencyType->setNamespace($this->namespace);
-					$dependencyType->setBasePath($this->basePath);
-					$dependencyType->setFilesList($this->files);
-					$dependencyType->setExtension($this->extension);
+					$dependencyType = $this->createDependency($dependencyType);
 
 					$fileDependencieSets = array();
 					foreach ($dependency as $dependencyEntity)
-					{
 						$fileDependencieSets[] = $dependencyType->getFiles($dependencyEntity, $file);
-					}
 
 					foreach ($fileDependencieSets as $fileDependencySet)
-					{
 						foreach ($fileDependencySet as $fileDependency)
-						{
 							$this->files[$fileDependency]->addDependant($file);
-							$this->files[$fileDependency]->setHasRequirements();
-						}
-					}
 				}
 			}
 		}

@@ -28,6 +28,7 @@ class AnnoLoader_Dependency_Builder_File
 
 	public function addDependant(AnnoLoader_Dependency_Builder_File $dependencyFile)
 	{
+		$this->hasRequirements();
 		$dependencyFile->increasePriority($this->getPriority() + 1);
 		$this->dependendents[] = $dependencyFile;
 	}
