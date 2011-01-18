@@ -20,6 +20,11 @@ class AnnoLoader_Writer
 		return $this;
 	}
 
+	public function getFilters()
+	{
+		return $this->filters;
+	}
+
 	protected function applyFilters($input, $fileName)
 	{
 		foreach ($this->filters as $filter)
@@ -32,12 +37,12 @@ class AnnoLoader_Writer
 	public function write($output = false)
 	{
 		$content = '';
-		foreach ($this->dependencyBuilder->get() as $fileInfo)
+		foreach ($this->dependencyBuilder as $fileName)
 		{
 			if ($output)
-				echo $this->applyFilters(file_get_contents($fileInfo->getName()), $fileInfo->getName());
+				echo $this->applyFilters(file_get_contents($fileName), $fileName).PHP_EOL;
 			else
-				$content .= $this->applyFilters(file_get_contents($fileInfo->getName()), $fileInfo->getName());
+				$content .= $this->applyFilters(file_get_contents($fileName), $fileName).PHP_EOL;
 		}
 
 		if ($output)
