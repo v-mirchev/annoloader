@@ -4,7 +4,7 @@
  *
  * @author vladsun
  */
-class AnnoLoader_Dependency_Builder_List
+class AnnoLoader_Dependency_Builder_List implements Iterator
 {
 	protected $basePath;
 	protected $namespace;
@@ -15,6 +15,33 @@ class AnnoLoader_Dependency_Builder_List
 	protected $directoryIterator;
 	protected $files;
 	protected $dependencyAdapterFactory;
+
+	protected $position = 0;
+
+	function rewind()
+	{
+        $this->position = 0;
+    }
+
+    function current()
+	{
+        return $this->files[$this->position]->getName();
+    }
+
+    function key()
+	{
+        return $this->position;
+    }
+
+    function next()
+	{
+        ++$this->position;
+    }
+
+    function valid()
+	{
+        return isset($this->array[$this->position]);
+    }
 
 	public function __construct
 	(
@@ -27,6 +54,8 @@ class AnnoLoader_Dependency_Builder_List
 		$dependencyAdapterFactory
 	)
 	{
+		$this->position = 0;
+
 		$this->basePath = $basePath;
 		$this->extension = $extension;
 		$this->namespace = $namespace;
