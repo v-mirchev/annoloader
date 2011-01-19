@@ -92,7 +92,7 @@ class AnnoLoader_Dependency_Builder_List implements Iterator
 		usort($this->files, function ($a, $b)
 		{
 			if ($a->hasRequirements() != $b->hasRequirements())
-				return $a->hasRequirements() > $b->hasRequirements() ? -1 : +1;
+				return $a->hasRequirements() < $b->hasRequirements() ? -1 : +1;
 
 			if ($a->getPriority() < $b->getPriority()) return -1;
 			if ($a->getPriority() > $b->getPriority()) return +1;
