@@ -54,7 +54,6 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 			'js',
 			new AnnoLoader_Namespace_Mapper(new AnnoLoader_Namespace_Map(array
 			(
-				'Ext.ex'	=> 'ex',
 			))),
 			new AnnoLoader_Directory_Iterator(),
 			new AnnoLoader_Dependency_Builder_File(),
@@ -64,12 +63,11 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 
 		$expectedList = array
 		(
-			0 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/data/Store.js',
-			1 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/grid/Panel.js',
-			2 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/plugin/GridPlugin.js',
-			3 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/grid/Filters.js',
-			4 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/data/Record.js',
-			5 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/data/Reader.js',
+			0 => JS_PATH . '/DependencyListBuilder/FileDependency/ux/0.js',
+			1 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/1.js',
+			2 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/2.js',
+			3 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/3.js',
+			4 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/4.js',
 		);
 
 		$this->object->build();
@@ -81,6 +79,9 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 		{
 			$filePathsList[] = $fileListItem->__toString();
 		}
+
+		print_r($fileList);
+
 		$this->assertEquals($expectedList, $filePathsList);
 	}
 
@@ -93,6 +94,7 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 			new AnnoLoader_Namespace_Mapper(new AnnoLoader_Namespace_Map(array
 			(
 				'Ext.ex'	=> 'ex',
+				'Ext.ux'	=> 'ux',
 			))),
 			new AnnoLoader_Directory_Iterator(),
 			new AnnoLoader_Dependency_Builder_File(),
@@ -102,13 +104,13 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 
 		$expectedList = array
 		(
-			0 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/data/Store.js',
-			1 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/grid/Panel.js',
-			2 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/plugin/GridPlugin.js',
-			3 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/grid/Filters.js',
-			4 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/data/Record.js',
-			5 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/data/Reader.js',
+			0 => JS_PATH . '/DependencyListBuilder/ClassDependency/ux/0.js',
+			1 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/1.js',
+			2 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/2.js',
+			3 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/3.js',
+			4 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/4.js',
 		);
+
 
 		$this->object->build();
 
