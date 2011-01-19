@@ -22,7 +22,7 @@ class AnnoLoader_Facade_CSS extends AnnoLoader_Facade_Abstract
 		$writer = new AnnoLoader_Writer($this->listBuilder);
 
 		if ($namer)
-			$writer->addFilter(new Annoloader_Writer_Filter_Namer());
+			$writer->addFilter(new AnnoLoader_Writer_Filter_Namer());
 
 		if (!$output)
 			return $writer->write(false);

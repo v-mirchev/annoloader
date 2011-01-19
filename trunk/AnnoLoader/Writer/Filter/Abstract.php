@@ -1,5 +1,5 @@
 <?php
-class Annoloader_Writer_Filter_Abstract
+class AnnoLoader_Writer_Filter_Abstract
 {
 	/**
 	 *
