@@ -1,4 +1,4 @@
-/* 
+/** 
  * @annoloader-requires-directory ext
  */
 
