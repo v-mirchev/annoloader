@@ -119,26 +119,27 @@ class AnnoLoader_Dependency_Builder_List implements Iterator
 
 		foreach ($this->files as $file)
 		{
+			$orderPriority = 0;
 			if (false !== $dependencies = $this->dependencyReader->read($file->getName()))
 			{
 				foreach ($dependencies as $dependencyType => $dependency)
 				{
 					$dependencyType = $this->createDependency($dependencyType);
 
-					$fileDependencieSets = array();
+					$fileDependenciesSets = array();
 					foreach ($dependency as $dependencyEntity)
 					{
-						$fileDependencieSets[] = $dependencyType->getFiles($dependencyEntity, $file);
+						$fileDependenciesSets[] = $dependencyType->getFiles($dependencyEntity, $file);
 					}
 
-					$orderPriority = 0;
-					foreach ($fileDependencieSets as $fileDependencySet)
+					foreach ($fileDependenciesSets as $fileDependencySet)
 					{
 						foreach ($fileDependencySet as $fileDependency)
 						{
-							$this->files[$fileDependency]->addDependant($file);
-							$file->increasePriority($orderPriority);
+							$this->files[$fileDependency]->increasePriority($orderPriority);
 							$orderPriority++;
+							
+							$this->files[$fileDependency]->addDependant($file);
 						}
 					}
 				}
