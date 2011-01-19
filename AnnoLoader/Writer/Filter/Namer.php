@@ -1,6 +1,6 @@
 <?php
 
-class Annoloader_Writer_Filter_Namer extends Annoloader_Writer_Filter_Abstract
+class AnnoLoader_Writer_Filter_Namer extends AnnoLoader_Writer_Filter_Abstract
 {
 	public function filter($input, $fileName)
 	{

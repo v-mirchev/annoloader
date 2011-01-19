@@ -16,10 +16,10 @@ class AnnoLoader_Facade_JS extends AnnoLoader_Facade_Abstract
 		$writer = new AnnoLoader_Writer($this->listBuilder->get());
 
 		if ($jsmin)
-			$writer->addFilter(new Annoloader_Writer_Filter_JSMin());
+			$writer->addFilter(new AnnoLoader_Writer_Filter_JSMin());
 
 		if ($namer)
-			$writer->addFilter(new Annoloader_Writer_Filter_Namer());
+			$writer->addFilter(new AnnoLoader_Writer_Filter_Namer());
 
 		if (!$output)
 			return $writer->write(false);

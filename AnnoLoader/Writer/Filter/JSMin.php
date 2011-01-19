@@ -45,7 +45,7 @@
  * @link http://code.google.com/p/jsmin-php/
  */
 
-class Annoloader_Writer_Filter_JSMin extends Annoloader_Writer_Filter_Abstract
+class AnnoLoader_Writer_Filter_JSMin extends AnnoLoader_Writer_Filter_Abstract
 {
   const ORD_LF    = 10;
   const ORD_SPACE = 32;
