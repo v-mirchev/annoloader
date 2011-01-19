@@ -68,6 +68,7 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 			2 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/2.js',
 			3 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/3.js',
 			4 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/4.js',
+			5 => JS_PATH . '/DependencyListBuilder/FileDependency/no/5.js',
 		);
 
 		$this->object->build();
