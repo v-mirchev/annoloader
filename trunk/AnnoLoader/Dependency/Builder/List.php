@@ -97,7 +97,7 @@ class AnnoLoader_Dependency_Builder_List implements Iterator
 			if ($a->getPriority() < $b->getPriority()) return -1;
 			if ($a->getPriority() > $b->getPriority()) return +1;
 
-			return ($a->getName() > $b->getName()) ? -1 : 1;
+			return ($a->getName() < $b->getName()) ? -1 : 1;
 		});
 	}
 
