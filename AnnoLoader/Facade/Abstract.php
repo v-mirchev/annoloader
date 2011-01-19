@@ -6,11 +6,11 @@
  */
 class AnnoLoader_Facade_Abstract
 {
-	protected $namespaceMap = null;
-	protected $basePath		= '';
-	protected $extension	= 'css';
+	public $namespaceMap = null;
+	public $basePath		= '';
+	public $extension	= 'css';
 
-	protected $listBuilder;
+	public $listBuilder;
 
 	public $keywords;
 	public $aliasMap;
