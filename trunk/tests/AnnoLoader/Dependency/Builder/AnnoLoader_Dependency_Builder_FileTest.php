@@ -73,6 +73,8 @@ class AnnoLoader_Dependency_Builder_FileTest extends PHPUnit_Framework_TestCase 
 		$dependencyFile2 = new AnnoLoader_Dependency_Builder_File('file1');
 
 		$this->object->addDependant($dependencyFile1);
+		$this->assertEquals(0, $this->object->getPriority());
+		$this->assertEquals(1, $dependencyFile1->getPriority());
 
 		$this->object->increasePriority();
 		$this->assertEquals(1, $this->object->getPriority());
@@ -109,11 +111,28 @@ class AnnoLoader_Dependency_Builder_FileTest extends PHPUnit_Framework_TestCase 
 		$dependencyFile2 = new AnnoLoader_Dependency_Builder_File('file1');
 
 		$this->object->addDependant($dependencyFile1);
+		$this->assertEquals(0, $this->object->getPriority());
 		$this->assertEquals(1, $dependencyFile1->getPriority());
 
 		$this->object->addDependant($dependencyFile2);
+		$this->assertEquals(0, $this->object->getPriority());
 		$this->assertEquals(1, $dependencyFile1->getPriority());
 		$this->assertEquals(1, $dependencyFile2->getPriority());
+	}
+
+	public function testAddDependantSecondLevel()
+	{
+		$dependencyFile1 = new AnnoLoader_Dependency_Builder_File('file1');
+		$dependencyFile2 = new AnnoLoader_Dependency_Builder_File('file1');
+
+		$this->object->addDependant($dependencyFile1);
+		$this->assertEquals(0, $this->object->getPriority());
+		$this->assertEquals(1, $dependencyFile1->getPriority());
+
+		$dependencyFile1->addDependant($dependencyFile2);
+		$this->assertEquals(0, $this->object->getPriority());
+		$this->assertEquals(1, $dependencyFile1->getPriority());
+		$this->assertEquals(2, $dependencyFile2->getPriority());
 	}
 
 	public function test__clone() 
