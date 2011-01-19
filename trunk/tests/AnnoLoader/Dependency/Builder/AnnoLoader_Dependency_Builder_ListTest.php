@@ -69,7 +69,7 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 			$filePathsList[] = $fileListItem->__toString();
 		}
 
-		if ($path === '/DependencyListBuilder/DirectoryDependency/Cross/')
+		if ($path === '/DependencyListBuilder/FileDependency/Ordered/')
 			print_r($fileList);
 
 		$this->assertEquals($expectedResult, $filePathsList);
@@ -94,7 +94,7 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 		);
 	}
 
-	public function testBuildSCrossFileDependencyOnly()
+	public function testBuildCrossFileDependencyOnly()
 	{
 		$this->_buildTest
 		(
@@ -105,6 +105,22 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 				JS_PATH . '/DependencyListBuilder/FileDependency/Cross/ext/0.js',
 				JS_PATH . '/DependencyListBuilder/FileDependency/Cross/ux/1.js',
 				JS_PATH . '/DependencyListBuilder/FileDependency/Cross/ex/2.js',
+			)
+		);
+	}
+
+	public function testBuildOrderedFileDependencyOnly()
+	{
+		$this->_buildTest
+		(
+			'/DependencyListBuilder/FileDependency/Ordered/',
+			array(),
+			array
+			(
+				JS_PATH . '/DependencyListBuilder/FileDependency/Ordered/1.js',
+				JS_PATH . '/DependencyListBuilder/FileDependency/Ordered/2.js',
+				JS_PATH . '/DependencyListBuilder/FileDependency/Ordered/0.js',
+				JS_PATH . '/DependencyListBuilder/FileDependency/Ordered/order.js',
 			)
 		);
 	}
