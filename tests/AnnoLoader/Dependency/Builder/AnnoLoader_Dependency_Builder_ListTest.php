@@ -46,84 +46,198 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 
 	}
 
-	public function testBuildFileDependencyOnly()
+	protected function _buildTest($path, $namespaceMap, $expectedResult)
 	{
 		$this->object = new AnnoLoader_Dependency_Builder_List
 		(
-			JS_PATH.'/DependencyListBuilder/FileDependency/',
+			JS_PATH.$path,
 			'js',
-			new AnnoLoader_Namespace_Mapper(new AnnoLoader_Namespace_Map(array
-			(
-			))),
+			new AnnoLoader_Namespace_Mapper(new AnnoLoader_Namespace_Map($namespaceMap)),
 			new AnnoLoader_Directory_Iterator(),
 			new AnnoLoader_Dependency_Builder_File(),
 			new AnnoLoader_Dependency_Reader_Annotation('annoloader', $this->keywords, $this->aliasMap),
 			new AnnoLoader_Dependency_Type_Factory()
 		);
 
-		$expectedList = array
-		(
-			0 => JS_PATH . '/DependencyListBuilder/FileDependency/ux/0.js',
-			1 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/1.js',
-			2 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/2.js',
-			3 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/3.js',
-			4 => JS_PATH . '/DependencyListBuilder/FileDependency/ex/4.js',
-			5 => JS_PATH . '/DependencyListBuilder/FileDependency/no/5.js',
-		);
-
 		$this->object->build();
-		
+
 		$fileList = $this->object->get();
 		$filePathsList = array();
-		
+
 		foreach ($fileList as $fileListItem)
 		{
 			$filePathsList[] = $fileListItem->__toString();
 		}
 
-		print_r($fileList);
+		if ($path === '/DependencyListBuilder/DirectoryDependency/Cross/')
+			print_r($fileList);
 
-		$this->assertEquals($expectedList, $filePathsList);
+		$this->assertEquals($expectedResult, $filePathsList);
+	}
+
+	public function testBuildSimpleFileDependencyOnly()
+	{
+		$this->_buildTest
+		(
+			'/DependencyListBuilder/FileDependency/Simple/',
+			array(),
+			array
+			(
+				JS_PATH . '/DependencyListBuilder/FileDependency/Simple/ux/0.js',
+				JS_PATH . '/DependencyListBuilder/FileDependency/Simple/ex/1.js',
+				JS_PATH . '/DependencyListBuilder/FileDependency/Simple/main.js',
+				JS_PATH . '/DependencyListBuilder/FileDependency/Simple/ex/2.js',
+				JS_PATH . '/DependencyListBuilder/FileDependency/Simple/ex/3.js',
+				JS_PATH . '/DependencyListBuilder/FileDependency/Simple/ex/4.js',
+				JS_PATH . '/DependencyListBuilder/FileDependency/Simple/no/5.js',
+			)
+		);
+	}
+
+	public function testBuildSCrossFileDependencyOnly()
+	{
+		$this->_buildTest
+		(
+			'/DependencyListBuilder/FileDependency/Cross/',
+			array(),
+			array
+			(
+				JS_PATH . '/DependencyListBuilder/FileDependency/Cross/ext/0.js',
+				JS_PATH . '/DependencyListBuilder/FileDependency/Cross/ux/1.js',
+				JS_PATH . '/DependencyListBuilder/FileDependency/Cross/ex/2.js',
+			)
+		);
 	}
 
 	public function testBuildClassDependencyOnly()
 	{
-		$this->object = new AnnoLoader_Dependency_Builder_List
+		$this->_buildTest
 		(
-			JS_PATH.'/DependencyListBuilder/ClassDependency/',
-			'js',
-			new AnnoLoader_Namespace_Mapper(new AnnoLoader_Namespace_Map(array
+			'/DependencyListBuilder/ClassDependency/',
+			array
 			(
 				'Ext.ex'	=> 'ex',
 				'Ext.ux'	=> 'ux',
-			))),
-			new AnnoLoader_Directory_Iterator(),
-			new AnnoLoader_Dependency_Builder_File(),
-			new AnnoLoader_Dependency_Reader_Annotation('annoloader', $this->keywords, $this->aliasMap),
-			new AnnoLoader_Dependency_Type_Factory()
+			),
+			array
+			(
+				JS_PATH . '/DependencyListBuilder/ClassDependency/ux/0.js',
+				JS_PATH . '/DependencyListBuilder/ClassDependency/ex/1.js',
+				JS_PATH . '/DependencyListBuilder/ClassDependency/ex/2.js',
+				JS_PATH . '/DependencyListBuilder/ClassDependency/ex/3.js',
+				JS_PATH . '/DependencyListBuilder/ClassDependency/ex/4.js',
+				JS_PATH . '/DependencyListBuilder/ClassDependency/no/5.js',
+			)
 		);
+	}
 
-		$expectedList = array
+	public function testBuildSingleDirectoryDependencyOnly()
+	{
+		$this->_buildTest
 		(
-			0 => JS_PATH . '/DependencyListBuilder/ClassDependency/ux/0.js',
-			1 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/1.js',
-			2 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/2.js',
-			3 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/3.js',
-			4 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/4.js',
-			5 => JS_PATH . '/DependencyListBuilder/ClassDependency/ex/5.js',
+			'/DependencyListBuilder/DirectoryDependency/Single/',
+			array (),
+			array
+			(
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Single/ex/0.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Single/ex/1.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Single/ex/2.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Single/ux/3.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Single/ux/4.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Single/last.js',
+			)
 		);
+	}
 
+	public function testBuildTreeDirectoryDependencyOnly()
+	{
+		$this->_buildTest
+		(
+			'/DependencyListBuilder/DirectoryDependency/Tree/',
+			array(),
+			array
+			(
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Tree/ex/0.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Tree/ex/ex1/1.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Tree/ex/ex1/ex2/2.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Tree/3.js',
+			)
+		);
+	}
 
-		$this->object->build();
+	public function testBuildMixedDirectoryDependencyOnly()
+	{
+		$this->_buildTest
+		(
+			'/DependencyListBuilder/DirectoryDependency/Mixed/',
+			array(),
+			array
+			(
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Mixed/ex/0.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Mixed/ex/ex1/1.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Mixed/ex/ex1/ex2/2.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Mixed/ux/3.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Mixed/4.js',
+			)
+		);
+	}
 
-		$fileList = $this->object->get();
-		$filePathsList = array();
+	public function testBuildCrossDirectoryDependencyOnly()
+	{
+		$this->_buildTest
+		(
+			'/DependencyListBuilder/DirectoryDependency/Cross/',
+			array(),
+			array
+			(
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Cross/ext/0.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Cross/ux/1.js',
+				JS_PATH . '/DependencyListBuilder/DirectoryDependency/Cross/ex/2.js',
+			)
+		);
+	}
 
-		foreach ($fileList as $fileListItem)
-		{
-			$filePathsList[] = $fileListItem->__toString();
-		}
-		$this->assertEquals($expectedList, $filePathsList);
+	public function testBuildNamespaceDependencyOnly()
+	{
+		$this->_buildTest
+		(
+			'/DependencyListBuilder/NamespaceDependency/',
+			array
+			(
+				'Ext.ex'	=> 'ex',
+				'Ext.ux'	=> 'ux',
+			),
+			array
+			(
+				JS_PATH . '/DependencyListBuilder/NamespaceDependency/ex/data/1.js',
+				JS_PATH . '/DependencyListBuilder/NamespaceDependency/ex/data/2.js',
+				JS_PATH . '/DependencyListBuilder/NamespaceDependency/ux/data/3.js',
+				JS_PATH . '/DependencyListBuilder/NamespaceDependency/ux/data/4.js',
+				JS_PATH . '/DependencyListBuilder/NamespaceDependency/last.js',
+			)
+		);
+	}
+
+	public function testBuildMixedDependency()
+	{
+		$this->_buildTest
+		(
+			'/DependencyListBuilder/MixedDependency/',
+			array
+			(
+				'Ext.ex'	=> 'ex',
+				'Ext.ux'	=> 'ux',
+				'Ext.App'	=> 'app',
+			),
+			array
+			(
+				JS_PATH . '/DependencyListBuilder/MixedDependency/ext/1.js',
+				JS_PATH . '/DependencyListBuilder/MixedDependency/ex/2.js',
+				JS_PATH . '/DependencyListBuilder/MixedDependency/ux/3.js',
+				JS_PATH . '/DependencyListBuilder/MixedDependency/app/Application.js',
+				JS_PATH . '/DependencyListBuilder/MixedDependency/last.js',
+			)
+		);
 	}
 
 }
