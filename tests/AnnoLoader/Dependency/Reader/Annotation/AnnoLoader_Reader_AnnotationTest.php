@@ -63,29 +63,29 @@ class AnnoLoader_Dependency_Reader_AnnotationTest extends PHPUnit_Framework_Test
 		(
 			"requires-file"	=> array
 			(
-				"1.js",
-				"2.js",
+				0	=> "1.js",
+				1	=> "2.js",
 			),
 			
 			"requires-class"	=> array
 			(
-				"Ext.Namespace.Class1",
-				"Ext.Namespace.Class2",
+				2	=> "Ext.Namespace.Class1",
+				3	=> "Ext.Namespace.Class2",
 			),
 
 			"requires-namespace"	=> array
 			(
-				"Ext.Namespace",
+				4	=> "Ext.Namespace",
 			),
 
 			"requires-directory"	=> array
 			(
-				"ex/grid",
+				5	=> "ex/grid",
 			),
 
 			"requires-directory-tree"	=> array
 			(
-				"ex/data",
+				6	=> "ex/data",
 			),
 		);
 
