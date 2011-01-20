@@ -28,6 +28,12 @@ require_once 'AnnoLoader/Writer/Filter/Namer.php';
 require_once 'AnnoLoader/Facade/Abstract.php';
 require_once 'AnnoLoader/Facade/JS.php';
 
+require_once 'AnnoLoader/Cache/Abstract.php';
+require_once 'AnnoLoader/Cache/Null.php';
+require_once 'AnnoLoader/Cache/Manager.php';
+
+$cache = new AnnoLoader_Cache_Manager('cache/js');
+
 $js = new AnnoLoader_Facade_JS
 (
 	'/www/site/annoloader/scripts/test/AnnoLoader/js/ux',
@@ -37,8 +43,8 @@ $js = new AnnoLoader_Facade_JS
 	)
 );
 
-$js->build();
+$js->setCacheManager(new AnnoLoader_Cache_Manager('cache/js'));
 
-$js->write(true);
+$js->output(true);
 
 exit();

@@ -11,6 +11,7 @@ class AnnoLoader_Facade_Abstract
 	public $extension	= 'css';
 
 	public $listBuilder;
+	public $cacheManager = null;
 
 	public $keywords;
 	public $aliasMap;
@@ -31,6 +32,13 @@ class AnnoLoader_Facade_Abstract
 			'requires-directory'		=> true,
 			'requires-namespace'		=> true,
 		);
+
+		$this->setCacheManager(null);
+	}
+
+	public function setCacheManager($cacheManager)
+	{
+		$this->cacheManager = $cacheManager ? $cacheManager : new AnnoLoader_Cache_Null();
 	}
 
 	public function build()
@@ -47,6 +55,37 @@ class AnnoLoader_Facade_Abstract
 		);
 
 		$this->listBuilder->build();
+	}
+
+	public function output($output = false)
+	{
+		if (false !== $content = $this->cacheManager->read())
+		{
+			if ($output)
+			{
+				echo $content;
+				return null;
+			}
+			else
+			{
+				return $content;
+			}
+		}
+
+		$this->build();
+		$content = $this->write(false);
+
+		$this->cacheManager->write($content);
+
+		if ($output)
+			echo $content;
+		else
+			return $content;
+	}
+
+	protected function write($output = false)
+	{
+
 	}
 
 }
