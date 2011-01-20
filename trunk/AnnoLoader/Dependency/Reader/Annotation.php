@@ -56,7 +56,7 @@ class AnnoLoader_Dependency_Reader_Annotation
 			if (!isset($annotations[$annotationName]))
 				$annotations[$annotationName] = array();
 
-			$annotations[$annotationName][] = trim($annotationValue);
+			$annotations[$annotationName][$ix] = trim($annotationValue);
 		}
 
 		return $annotations;
