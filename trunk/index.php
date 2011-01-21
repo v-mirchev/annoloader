@@ -27,6 +27,7 @@ require_once 'AnnoLoader/Writer/Filter/Namer.php';
 
 require_once 'AnnoLoader/Facade/Abstract.php';
 require_once 'AnnoLoader/Facade/JS.php';
+require_once 'AnnoLoader/Facade/CSS.php';
 
 require_once 'AnnoLoader/Cache/Abstract.php';
 require_once 'AnnoLoader/Cache/Null.php';

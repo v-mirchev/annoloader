@@ -17,6 +17,7 @@ class AnnoLoader_Facade_CSS extends AnnoLoader_Facade_Abstract
 		);
 
 	}
+	
 	public function write($output = false, $namer = true)
 	{
 		$writer = new AnnoLoader_Writer($this->listBuilder);
