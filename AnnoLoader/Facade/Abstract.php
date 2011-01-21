@@ -59,28 +59,23 @@ class AnnoLoader_Facade_Abstract
 
 	public function output($output = false)
 	{
-		if (false !== $content = $this->cacheManager->read())
+		if (false === $content = $this->cacheManager->read())
 		{
-			if ($output)
-			{
-				echo $content;
-				return null;
-			}
-			else
-			{
-				return $content;
-			}
+			$this->build();
+			$content = $this->write(false);
+
+			$this->cacheManager->write($content);
 		}
 
-		$this->build();
-		$content = $this->write(false);
-
-		$this->cacheManager->write($content);
-
 		if ($output)
+		{
 			echo $content;
+			return null;
+		}
 		else
+		{
 			return $content;
+		}
 	}
 
 	protected function write($output = false)
