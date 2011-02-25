@@ -18,6 +18,8 @@ class AnnoLoader_Dependency_Builder_List implements Iterator
 
 	protected $position = 0;
 
+	public $ignoreMode = false;
+
 	function rewind()
 	{
         $this->position = 0;
@@ -132,10 +134,10 @@ class AnnoLoader_Dependency_Builder_List implements Iterator
 						$fileDependenciesSets[] = array
 						(
 							'order'	=> $orderPriority,
-							'files'	=> $dependencyType->getFiles($dependencyEntity, $file)
+							'files'	=> $dependencyType->getFiles($dependencyEntity, $file->getName())
 						);
 					}
-
+					
 					foreach ($fileDependenciesSets as $fileDependencySet)
 					{
 						foreach ($fileDependencySet['files'] as $fileDependency)
@@ -146,6 +148,14 @@ class AnnoLoader_Dependency_Builder_List implements Iterator
 					}
 				}
 			}
+		}
+
+		if ($this->ignoreMode)
+		{
+			$this->files = array_filter($this->files, function ($file)
+			{
+				return $file->isRequired();
+			});
 		}
 
 		$this->sortByPriority();

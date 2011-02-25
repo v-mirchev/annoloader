@@ -22,6 +22,9 @@ class AnnoLoader_Dependency_Type_Factory
 				case 'requires-file'		: 
 					self::$types[$dependencyName] = new AnnoLoader_Dependency_Type_File();
 					break;
+				case 'required'		:
+					self::$types[$dependencyName] = new AnnoLoader_Dependency_Type_Self();
+					break;
 				case 'requires-class'		:
 					self::$types[$dependencyName] = new AnnoLoader_Dependency_Type_Class();
 					break;

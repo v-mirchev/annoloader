@@ -14,6 +14,7 @@ class AnnoLoader_Dependency_Type_Abstract
 
 	/**
 	 * @param string $dependency
+	 * @param string $currentFile
 	 *
 	 * @return array|false
 	 */

@@ -10,6 +10,7 @@ class AnnoLoader_Dependency_Builder_File
 	protected $dependendents = array();
 	protected $priority = 0;
 	protected $hasRequirements = false;
+	protected $isRequired = false;
 
 	public function __construct($fileName = null)
 	{
@@ -29,6 +30,12 @@ class AnnoLoader_Dependency_Builder_File
 	public function addDependant(AnnoLoader_Dependency_Builder_File $dependencyFile)
 	{
 		$this->setHasRequirements();
+		$this->setRequired();
+
+		// Allow self requirement and stop recursion
+		if ($this === $dependencyFile)
+			return;
+
 		$dependencyFile->increasePriority($this->getPriority() + 1);
 		$this->dependendents[] = $dependencyFile;
 	}
@@ -41,6 +48,16 @@ class AnnoLoader_Dependency_Builder_File
 	public function setHasRequirements()
 	{
 		$this->hasRequirements = true;
+	}
+
+	public function isRequired()
+	{
+		return $this->isRequired;
+	}
+
+	public function setRequired()
+	{
+		$this->isRequired = true;
 	}
 
 	public function getPriority()

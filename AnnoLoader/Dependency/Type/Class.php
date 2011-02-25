@@ -13,7 +13,6 @@ class AnnoLoader_Dependency_Type_Class extends AnnoLoader_Dependency_Type_Abstra
 		if (false === $path = realpath($this->basePath.'/'.$fileName.'.'.$this->extension))
 			throw new AnnoLoader_Dependency_Type_Exception ("Class:: File [ $this->basePath.'/'.$fileName.'.'.$this->extension ], defined in [ $currentFile ] does not exist.");
 
-
 		if (!isset($this->files[$path]))
 			throw new AnnoLoader_Dependency_Type_Exception ("Class:: File [ $path ], defined in [ $currentFile ] does not exist.");
 
