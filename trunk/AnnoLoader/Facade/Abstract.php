@@ -31,6 +31,7 @@ class AnnoLoader_Facade_Abstract
 			'requires-directory-tree'	=> true,
 			'requires-directory'		=> true,
 			'requires-namespace'		=> true,
+			'required'					=> true,
 		);
 
 		$this->setCacheManager(null);
