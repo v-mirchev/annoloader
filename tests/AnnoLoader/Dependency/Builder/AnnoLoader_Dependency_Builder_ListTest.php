@@ -15,6 +15,8 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 	 */
 	protected $object;
 
+	protected $ignoreMode = false;
+
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
@@ -28,6 +30,7 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 			'requires-directory-tree'	=> true,
 			'requires-directory'		=> true,
 			'requires-namespace'		=> true,
+			'required'					=> true,
 		);
 
 		$this->aliasMap = array
@@ -59,6 +62,8 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 			new AnnoLoader_Dependency_Type_Factory()
 		);
 
+		$this->object->ignoreMode = $this->ignoreMode;
+
 		$this->object->build();
 
 		$fileList = $this->object->get();
@@ -68,9 +73,6 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 		{
 			$filePathsList[] = $fileListItem->__toString();
 		}
-
-		if ($path === '/DependencyListBuilder/FileDependency/Ordered/')
-			print_r($fileList);
 
 		$this->assertEquals($expectedResult, $filePathsList);
 	}
@@ -252,6 +254,28 @@ class AnnoLoader_Dependency_Builder_ListTest extends PHPUnit_Framework_TestCase 
 				JS_PATH . '/DependencyListBuilder/MixedDependency/ux/3.js',
 				JS_PATH . '/DependencyListBuilder/MixedDependency/app/Application.js',
 				JS_PATH . '/DependencyListBuilder/MixedDependency/last.js',
+			)
+		);
+	}
+
+	public function testBuildMixedDependencyWithIgnoredFiles()
+	{
+		$this->ignoreMode = true;
+		$this->_buildTest
+		(
+			'/DependencyListBuilder/MixedDependencyWithIgnoredFiles/',
+			array
+			(
+				'Ext.ex'	=> 'ex',
+				'Ext.ux'	=> 'ux',
+				'Ext.App'	=> 'app',
+			),
+			array
+			(
+				JS_PATH . '/DependencyListBuilder/MixedDependencyWithIgnoredFiles/ext/1.js',
+				JS_PATH . '/DependencyListBuilder/MixedDependencyWithIgnoredFiles/ex/2.js',
+				JS_PATH . '/DependencyListBuilder/MixedDependencyWithIgnoredFiles/app/Application.js',
+				JS_PATH . '/DependencyListBuilder/MixedDependencyWithIgnoredFiles/last.js',
 			)
 		);
 	}
