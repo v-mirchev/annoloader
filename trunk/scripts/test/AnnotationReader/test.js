@@ -14,5 +14,6 @@
  * @annoloader-requires-directory-tree ex/data
  *
  *
+ * @annoloader-required
  *
  */

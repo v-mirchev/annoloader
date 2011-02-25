@@ -46,10 +46,10 @@ class AnnoLoader_Dependency_Reader_Annotation
 
 		$annotations = array();
 
-		foreach ($docs['key'] as $ix => $annotationName)
+		foreach ($docs['key'] as $ix => $annotationNameCandidat)
 		{
-			if (false === $annotationName = $this->getAnnotation($annotationName))
-				throw new AnnoLoader_Dependency_Reader_Exception('Dependency annotation [ '.$annotationName.' ] not recognized');
+			if (false === $annotationName = $this->getAnnotation($annotationNameCandidat))
+				throw new AnnoLoader_Dependency_Reader_Exception('Dependency annotation [ '.$annotationNameCandidat.' ] not recognized');
 
 			$annotationValue = $docs['value'][$ix];
 
