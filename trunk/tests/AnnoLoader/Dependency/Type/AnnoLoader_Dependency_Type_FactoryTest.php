@@ -45,6 +45,7 @@ class AnnoLoader_Dependency_Type_FactoryTest extends PHPUnit_Framework_TestCase 
 			array('requires-class', new AnnoLoader_Dependency_Type_Class()),
 			array('requires-directory', new AnnoLoader_Dependency_Type_Directory_Single()),
 			array('requires-directory-tree', new AnnoLoader_Dependency_Type_Directory_Tree()),
+			array('required', new AnnoLoader_Dependency_Type_Self()),
         );
     }
 

@@ -20,7 +20,8 @@ class AnnoLoader_Dependency_Reader_AnnotationTest extends PHPUnit_Framework_Test
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp() {
+	protected function setUp()
+	{
 		$this->keywords = array
 		(
 			'requires-file'				=> true,
@@ -28,6 +29,7 @@ class AnnoLoader_Dependency_Reader_AnnotationTest extends PHPUnit_Framework_Test
 			'requires-directory-tree'	=> true,
 			'requires-directory'		=> true,
 			'requires-namespace'		=> true,
+			'required'					=> true,
 		);
 
 		$this->aliasMap = array
@@ -86,6 +88,11 @@ class AnnoLoader_Dependency_Reader_AnnotationTest extends PHPUnit_Framework_Test
 			"requires-directory-tree"	=> array
 			(
 				6	=> "ex/data",
+			),
+
+			"required"	=> array
+			(
+				7	=> "",
 			),
 		);
 

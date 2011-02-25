@@ -24,6 +24,7 @@ require_once CLASS_PATH . '/AnnoLoader/Dependency/Builder/List.php';
 require_once CLASS_PATH . '/AnnoLoader/Dependency/Builder/File.php';
 
 require_once CLASS_PATH . '/AnnoLoader/Dependency/Type/Abstract.php';
+require_once CLASS_PATH . '/AnnoLoader/Dependency/Type/Self.php';
 require_once CLASS_PATH . '/AnnoLoader/Dependency/Type/File.php';
 require_once CLASS_PATH . '/AnnoLoader/Dependency/Type/Class.php';
 require_once CLASS_PATH . '/AnnoLoader/Dependency/Type/Namespace.php';
