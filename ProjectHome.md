@@ -1,0 +1,1 @@
+Generates a list of files, ordered by their dependencies. File dependencies are described by using PhpDoc annotation style. Suitable for solving load order issues with CSS and JS files.
